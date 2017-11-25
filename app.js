@@ -84,17 +84,36 @@ document.querySelector('.btn-hold').addEventListener('click', function() {
 		//update UI 
 		document.querySelector('#score-' + activePlayer).textContent = scores[activePlayer];
 
-		//check if player won game
-		if (scores[activePlayer] >= 100) {
-			document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
-			document.querySelector('.dice').style.display = 'none';
-			document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
-			document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
-			gamePlaying = false;
-		} else {
-			nextPlayer();
+		//create var for a value if user decided to set a different winning final score than 100
+		var input = document.querySelector('.final-score').value;
+
+		//if user input a different winning score
+		if(input){
+			//check if player won the game
+			if (scores[activePlayer] >= input) {
+				document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+				document.querySelector('.dice').style.display = 'none';
+				document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+				document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+				gamePlaying = false;
+			} else {
+				nextPlayer();
 		}
-	}	
+		//leaves input box blank hence default score of 100 to win
+		} else{
+			//check if player won the game
+			if (scores[activePlayer] >= 100) {
+				document.querySelector('#name-' + activePlayer).textContent = 'Winner!';
+				document.querySelector('.dice').style.display = 'none';
+				document.querySelector('.player-' + activePlayer + '-panel').classList.add('winner');
+				document.querySelector('.player-' + activePlayer + '-panel').classList.remove('active');
+				gamePlaying = false;
+			} else {
+				nextPlayer();
+			}
+		}
+	}
+	
 });
 
 
